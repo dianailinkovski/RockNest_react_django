@@ -1,4 +1,6 @@
 # Recipe Sharing App
+<img src = "https://github.com/osipestar/RockNest_react_django/blob/main/public/landing.svg" />
+
 
 
 
