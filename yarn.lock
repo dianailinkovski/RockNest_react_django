@@ -1979,57 +1979,6 @@
   dependencies:
     tslib "^2.4.0"
 
-"@syncfusion/ej2-base@~21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-base/-/ej2-base-21.2.3.tgz#0c192b075b660ab637daf10195b4b175c42d56c4"
-  integrity sha512-dUMehTP62PWZZbZjbvFAr9li5bVqAcpy4mPyLNYbIkXujWHuJqxlcihuvZWZKPXZ1RynzK6YerWbBwjFKKz6vA==
-  dependencies:
-    "@syncfusion/ej2-icons" "~21.2.3"
-
-"@syncfusion/ej2-data@~21.2.3":
-  version "21.2.4"
-  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-data/-/ej2-data-21.2.4.tgz#739c8b42b9161e0180fee1f6af5168f880786f42"
-  integrity sha512-ceTZwdTEWfYdeIO0+laqtT94yfoY4kF74MQCOz4EBEo7AoY+2CCmMRkcdGDwsUy4O660YmgaspnOZeQn5r63/g==
-  dependencies:
-    "@syncfusion/ej2-base" "~21.2.3"
-
-"@syncfusion/ej2-icons@~21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-icons/-/ej2-icons-21.2.3.tgz#caa565bb8e43f065d7ee58a96054068e6d466484"
-  integrity sha512-LSu+sXQHRO6eTjD1D66GPQALoUMVRZXeLnZ86WWAI7V3j8rfCDAiI4tG8XQ7nncuHgGO2e36T9A70J1eRh0/ng==
-
-"@syncfusion/ej2-progressbar@21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-progressbar/-/ej2-progressbar-21.2.3.tgz#f3f36587d014a8d3131a5d9ff3ca17ff6852a89e"
-  integrity sha512-A9zzPENxkqiTKEk3dN/28b0NDbBeY6ZmxOykYDYyTjfISsz9AKfDEOInbN/1owpMp7aPDThc4jspDtiGCkRejQ==
-  dependencies:
-    "@syncfusion/ej2-base" "~21.2.3"
-    "@syncfusion/ej2-data" "~21.2.3"
-    "@syncfusion/ej2-svg-base" "~21.2.3"
-
-"@syncfusion/ej2-react-base@~21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-base/-/ej2-react-base-21.2.3.tgz#0c4e6db7c9b8b6b83a09f95855d6407e88f47461"
-  integrity sha512-/ftG9YY2exx3HQqJxofaYlLH5hCPHiH72TiUUUXYYPZlxjYQfl0bESjrVbHz9nZGjSr8haLNccWO4QabpauSig==
-  dependencies:
-    "@syncfusion/ej2-base" "~21.2.3"
-
-"@syncfusion/ej2-react-progressbar@^21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-progressbar/-/ej2-react-progressbar-21.2.3.tgz#882855d05033d69688d662a41f452cc017905493"
-  integrity sha512-HuY0mprHQT30/ZH42Ss+4m4lqAFOHpMYW4buLI/QdjF/4Y185sGuizxmZMlcT223ivm3iAMnoKBDyRhG2DUfsQ==
-  dependencies:
-    "@syncfusion/ej2-base" "~21.2.3"
-    "@syncfusion/ej2-progressbar" "21.2.3"
-    "@syncfusion/ej2-react-base" "~21.2.3"
-
-"@syncfusion/ej2-svg-base@~21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-svg-base/-/ej2-svg-base-21.2.3.tgz#e72494ab8dd58ab8ea566b9abd14bdf7d54ad3c2"
-  integrity sha512-WXYmdRzmIZxq07/sChuNbhnmtkQB3W4qD2smMXyLnEkkL/hewubClrsUUE5zUhwWDgP0XUXh/uYfAKbaFrV2+g==
-  dependencies:
-    "@syncfusion/ej2-base" "~21.2.3"
-
 "@testing-library/dom@^7.28.1":
   version "7.31.2"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-7.31.2.tgz#df361db38f5212b88555068ab8119f5d841a8c4a"

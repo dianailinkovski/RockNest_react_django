@@ -24,7 +24,7 @@ export default function Sidebar() {
           </Row>
           <Row justify="center">
             <Col span={24}>
-              <FiVolume2 className="volume_icon mx-auto" onClick={start} />
+              <FiVolume2 className="volume_icon mx-auto" style={{width:'100%'}} onClick={start} />
             </Col>
           </Row>
           <Row justify="center" className="">

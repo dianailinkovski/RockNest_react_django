@@ -7,8 +7,8 @@ import Cart from "./screens/cart";
 import Loading from "./screens/loading";
 import ProductStep from "./screens/productstep";
 // import Header from "./components/layouts/Header";
-// import Register from "./components/accounts/Register";
-// import Login from "./components/accounts/Login";
+import Register from "./screens/accounts/Register";
+import Login from "./screens/accounts/Login";
 // import Landing from "./components/layouts/Landing";
 // import Recipes from "./components/recipe/Recipes";
 // import RecipeDetail from "./components/recipe/RecipeDetail";
@@ -27,7 +27,7 @@ export default function App() {
   const [isloading, setIsLoading] = useState(true);
   setTimeout(() => {
     setIsLoading(false);
-  }, 100);
+  }, 2000);
   return (
     <>
       {isloading ? (
@@ -40,9 +40,11 @@ export default function App() {
             <Route exact path="/products/:id" element={<Product />} />
             <Route exact path="/cart" element={<Cart />} />
             <Route exact path="/step" element={<ProductStep />}></Route>
+            <Route exact path="/login" element={<Login />}></Route>
+            <Route exact path="/register" element={<Register />}></Route>
           </Routes>
         </Router>
-      )}
+       )} 
     </>
   );
 }

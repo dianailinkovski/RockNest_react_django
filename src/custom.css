@@ -407,15 +407,34 @@ p {
 .mobile_sidebar {
     display: none;
 }
+.detail_image{
+    width:65px;
+    height: 85px;
+    padding:10px;
+    border:2px solid rgba(60, 67, 74, 0.12);
+    border-style:dotted;
+    margin-left: 12px;
+    margin-right:12px;
+    
+}
+.detail_image.active{
+    border:2px solid black;
+}
+.product_large_image{
+    margin : "auto";
+    height: "550px";
+}
 
 @media screen and (max-width : 1200px) {
     .landing_img_item {
         width: 300px !important;
         height: 380px !important;
     }
+     
 }
 
 @media screen and (max-width:992px) {
+    
     .mobile_sidebar {
         display: flex;
         justify-content: space-between;
@@ -582,6 +601,13 @@ p {
         padding-right: unset !important;
         padding-left: unset !important;
     }
+    .loading_dec {
+        font-size: 12px;
+    }
+    .loading_title {
+        font-size: 44px;
+        
+    }
 
 }
 
@@ -659,9 +685,13 @@ p {
   .font-title {
     font-size: 16px;
     font-weight: bold;
+    font-family: "Cairo";
+    font-style: normal;
   }
   .font-label {
     font-size: 12px;
+    font-family: "Cairo";
+    font-style: normal;
   }
   .btn_next {
     background: #32383e;
@@ -673,6 +703,8 @@ p {
     font-size: 18px;
     line-height: 34px;
     height: 56px;
+    font-family: "Cairo";
+    font-style: normal;
   }
   .btn_next:hover {
     background: #1c1f22;
@@ -690,6 +722,8 @@ p {
     font-size: 18px;
     line-height: 34px;
     height: 56px;
+    font-family: "Cairo";
+    font-style: normal;
   }
   .btn_prev:hover {
     color: #1c1f22;

@@ -1,60 +1,102 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Typography, InputNumber } from "antd";
+import { Row, Col, Typography, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { MinusSquareOutlined, PlusSquareOutlined } from "@ant-design/icons";
 import Sidebar from "./sidebar";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 // import "./custom";
 import $ from "jquery";
+import axios from "axios";
+import { getProduct } from "../redux/actions/recipes";
 
 // import { AiOutlineMinus } from "react-icons/ai";
-import { getProduct } from "../redux/actions/recipes";
 const { Title, Paragraph } = Typography;
-export default function Product() {
-    const dispatch = useDispatch();
-    let { id } = useParams();
-    const { getproduct } = useSelector((state) => state.recipes);
+const baseURL = "http://127.0.0.1:8000";
 
-    useEffect(() => {
-      dispatch(getProduct(id));
-    }, [dispatch]);
+export default function Product() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  let { id } = useParams();
+  const { getproduct, img_list } = useSelector((state) => state.recipes);
+  const { token } = useSelector((state) => state.auth);
+  console.log(token,"token123");
+  // let img_list=getproduct.images?getproduct.images:[];
+  // console.log(getproduct, "getproduct");
+  // console.log(img_list, "img_list");
+  const [detail_image, setDetail_image] = useState(
+    localStorage.getItem("image_url")
+  );
+  useEffect(() => {
+    dispatch(getProduct(id));
+  }, [dispatch, id]);
 
   const [qty_val, setQty_val] = useState(1);
-  useEffect(()=>{
+  useEffect(() => {
     if (qty_val > 1) {
       $(".product_minus").addClass("active");
     } else {
       $(".product_minus").removeClass("active");
     }
-  },[qty_val])
+  }, [qty_val]);
   const Qty = (flag) => {
-    
     if (flag == "plus") {
-      const set_val=Number(qty_val)+1;
+      const set_val = Number(qty_val) + 1;
       setQty_val(set_val);
       // setQty_val(qty_val + 1);
     } else {
       if (qty_val == 1) {
         return;
       }
-      const set_val=Number(qty_val)-1;
+      const set_val = Number(qty_val) - 1;
       setQty_val(set_val);
     }
   };
-
+  const select_image = (id, image_url) => {
+    $("#image" + id).addClass("active");
+    $("#image" + id)
+      .siblings(".detail_image")
+      .removeClass("active");
+    // const img_url = "http://localhost:8000/" + image_url;
+    setDetail_image(image_url);
+  };
+  const add_cart = (id) => {
+    // const token=JSON.parse(localStorage.getItem("rocket_user"))
+    if (token) {
+      const data = {
+        id: Number(id),
+        qty: qty_val,
+      };
+      axios
+        .post(`${baseURL}/add-to-cart/`, data)
+        .then((res) => {
+          console.log(res.data, "add_cart");
+          message.success("Cart is added successfully!");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    else{
+      navigate("/login");
+    }
+  };
+  // console.log(img_list,"img_list");
   return (
     <>
       <Row className="body_space">
         <div className="sidebar_position">
           <Sidebar />
         </div>
-        <div className="page_content" >
+        <div className="page_content">
           <Row>
             <Col span={24}>
-              <Row >
+              <Row>
                 <Col xl={11} lg={10} md={24} sm={24} className="product_left">
-                  <Row className="mt-5 product_mobile_left" >
-                    <Col style={{ fontSize: "15px",marginLeft:"20px" }} span={20}>
+                  <Row className="mt-5 product_mobile_left">
+                    <Col
+                      style={{ fontSize: "15px", marginLeft: "20px" }}
+                      span={20}
+                    >
                       <span style={{ color: "#32383E", opacity: "0.43" }}>
                         {" "}
                         Home
@@ -72,32 +114,76 @@ export default function Product() {
                         Products{" "}
                       </Link>
                       &nbsp;&nbsp; &gt;&nbsp;&nbsp;
-                      <b className="detail_path">Alexander The Great</b>
+                      <b className="detail_path"> {getproduct.name} </b>
                     </Col>
                   </Row>
                   <Row className="mt-5" justify="center">
-                    <Col lg={20} md={20} sm={24} >
-                      <img src="../../landing.svg" alt="product detail" style={{margin : "auto"}} />
+                    <Col lg={20} md={20} sm={24}>
+                      <img
+                        src={`http://localhost:8000/${detail_image}`}
+                        alt={`product detail${getproduct.id}`}
+                        style={{ margin: "auto", height: "550px" }}
+                      />
                     </Col>
                   </Row>
+                  <Row className="mt-3" justify="center">
+                    {img_list.map((item, i) => (
+                      <img
+                        src={`http://localhost:8000${item.image}`}
+                        className={
+                          i == 1 ? "detail_image active" : "detail_image"
+                        }
+                        alt={`detail${i}`}
+                        id={`image${i}`}
+                        onClick={() => select_image(i, item.image)}
+                      />
+                    ))}
+
+                    {/* <img
+                      src={`http://localhost:8000/${detail_image}`}
+                      className="detail_image "
+                      alt="detail1"
+                      id="image1"
+                      onClick={() => select_image(1)}
+                    />
+                    <img
+                      src="../../landing.svg"
+                      className="detail_image active"
+                      alt="detail2"
+                      id="image2"
+                      onClick={() => select_image(2)}
+                    />
+                    <img
+                      src="../../landing.svg"
+                      className="detail_image"
+                      alt="detail3"
+                      id="image3"
+                      onClick={() => select_image(3)}
+                    /> */}
+                  </Row>
                 </Col>
-                <Col xl={11} lg={11} md={24} sm={24} className="mt-4 product_right">
+                <Col
+                  xl={11}
+                  lg={11}
+                  md={24}
+                  sm={24}
+                  xs={24}
+                  className="mt-4 product_right"
+                >
                   <Row className="product_name_mobile">
                     <Col span={24}>
-                      <Title className="product_name">
-                        Alexander The Great
-                      </Title>
+                      <Title className="product_name">{getproduct.name}</Title>
                     </Col>
                   </Row>
                   <Row className="border_bottom pb-3 product_name_mobile">
                     <Col>
                       <Paragraph className="product_dec">
-                        Italian Arabescato Marble Sculpture Handcrafted In Egypt
+                        {getproduct.description}
                       </Paragraph>
                     </Col>
                   </Row>
                   <Row className="mt-4">
-                    <Col xl={12} lg={12} md={12} sm={14} xs={15} >
+                    <Col xl={12} lg={12} md={12} sm={14} xs={15}>
                       <p className="product_size">Dimensions</p>
                     </Col>
                     <Col xl={10} lg={10} md={10} sm={10} xs={9}>
@@ -105,14 +191,14 @@ export default function Product() {
                     </Col>
                   </Row>
                   <Row className=" border_bottom pb-3">
-                    <Col xl={12} lg={12} md={12} sm={14} xs={14} >
+                    <Col xl={12} lg={12} md={12} sm={14} xs={14}>
                       <Paragraph className="product_size_value">
-                        H 71cm X D 37cm X W 37cm
+                        {getproduct.dimension}
                       </Paragraph>
                     </Col>
                     <Col xl={10} lg={10} md={10} sm={10} xs={10}>
                       <Paragraph className="product_size_value">
-                        Canada Country
+                        {getproduct.made_in}
                       </Paragraph>
                     </Col>
                   </Row>
@@ -125,8 +211,7 @@ export default function Product() {
                     <Col span={24}>
                       <Paragraph className="product_size_value">
                         {" "}
-                        Italian Arabescato Marble Sculpture Handcrafted in
-                        EgyptItalian Arabescato Marble Sculpture.
+                        {getproduct.material}
                       </Paragraph>
                     </Col>
                   </Row>
@@ -138,7 +223,7 @@ export default function Product() {
                   <Row className="mt-3 border_bottom pb-3">
                     <Col span={24}>
                       <Paragraph className="product_size_value">
-                        8 _ 11 weeks
+                        {getproduct.estimated_time}
                       </Paragraph>
                     </Col>
                   </Row>
@@ -189,12 +274,21 @@ export default function Product() {
                       <p className="product_size">Total Price</p>
                     </Col>
                     <Col span={10} style={{ textAlign: "end" }}>
-                      <p className="product_price">$123</p>
+                      <p className="product_price">
+                        {getproduct.price * qty_val}{" "}
+                      </p>
                     </Col>
                   </Row>
                   <Row className="mt-3">
                     <Col span={24}>
-                      <button className="add_cart">Add To Cart</button>
+                      {/* <Link to="/cart"> */}
+                      <button
+                        className="add_cart"
+                        onClick={() => add_cart(getproduct.id)}
+                      >
+                        Add To Cart
+                      </button>
+                      {/* </Link> */}
                     </Col>
                   </Row>
                   <Row className="mt-3">
@@ -205,7 +299,9 @@ export default function Product() {
 
                   <Row className="mt-2 mb-3">
                     <Col span={24} className="product_custom_size">
-                      <p className="product_custom_val">100*100*100</p>
+                      <p className="product_custom_val">
+                        {getproduct.custom_size}{" "}
+                      </p>
                       <div className="product_custom_arrow">&gt;</div>
                     </Col>
                   </Row>

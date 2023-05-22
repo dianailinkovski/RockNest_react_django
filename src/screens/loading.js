@@ -1,9 +1,18 @@
-import React from "react";
-import { Row, Col, Divider, Typography } from "antd";
+import React, { useState } from "react";
+import { Row, Col, Divider, Typography, Progress } from "antd";
 import { FiVolume2 } from "react-icons/fi";
-import { ProgressBarComponent } from "@syncfusion/ej2-react-progressbar";
+import { green, red } from '@ant-design/colors';
+// import { ProgressBarComponent } from "@syncfusion/ej2-react-progressbar";
+// import { LinearProgressBar, CircularProgressBar  } from "react-percentage-bar";
 const { Paragraph } = Typography;
+
 export default function Loading() {
+  // const Progress = () => {
+  //   // for(var i=1; i<100; i=i+10) {
+  //     return <Progress steps={3} percent={i} size={[20, 30]} />
+  // //   }
+  // }
+
   return (
     <>
       <Row className="body_space">
@@ -13,7 +22,7 @@ export default function Loading() {
               <p
                 style={{
                   color: "rgba(255, 255, 255, 0.76)",
-                  textAlign: "center",
+                  textAlign: "center",  
                 }}
               >
                 May 14, 2023{" "}
@@ -43,6 +52,13 @@ export default function Loading() {
           </Row>
           <Row justify="center">
             <Col span={16}>
+              {/* {
+                Progress()
+                  
+                
+              } */}
+                
+
               {/* <ProgressBarComponent
                 id="linear"
                 type="Linear"
@@ -56,7 +72,7 @@ export default function Loading() {
                   delay: 0,
                 }}
               ></ProgressBarComponent> */}
-               
+                 {/* <Progress percent={30} steps={5} /> */}
             </Col>
           </Row>
         </Col>

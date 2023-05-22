@@ -1,15 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 
 import Sidebar from "./sidebar";
 import { getProducts } from "../redux/actions/recipes";
-import { Link } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 import { FiVolume2 } from "react-icons/fi";
 import { InstagramOutlined } from "@ant-design/icons";
-
+import Loading from './loading';
 export default function Landingpage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { getproducts } = useSelector((state) => state.recipes);
   var audio = new Audio("../../sound.mp3");
   const start = () => {
@@ -18,10 +19,18 @@ export default function Landingpage() {
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
-  console.log(getproducts, "getproducts");
+  // console.log(getproducts, "getproducts");
   // let products_data = getproducts ? getProducts : []
+  const goto_detail = (id, image) => {
+    localStorage.setItem('image_url',image);
+    navigate(`/products/${id}`);
+    // console.log(id,"id");
+  }
   return (
     <>
+     {/* {isloading ? (
+        <Loading />
+      ) : ( */}
       <Row className="body_space">
         <div className="sidebar_position">
           <Sidebar />
@@ -54,14 +63,24 @@ export default function Landingpage() {
               <Row className="landing_image_mobile">
                 {getproducts.map((item) => (
                   <div className="landing_img_item">
-                    <Link to={`/products/${item.id}`}>
+                    {/* <Link to={`/products/${item.id}`}> */}
                       {" "}
-                      <img src={`http://localhost:8000/${item.image}`} alt="landing image1" />
-                    </Link>
+                      <img src={`http://localhost:8000/${item.main_image}`} alt="landing image1" onClick={()=>goto_detail(item.id,item.main_image)} />
+                    {/* </Link> */}
                     <p className="landing_img_title">{ item.name }</p>
                   </div>
                 ))}
+                {/* <div className="landing_img_item">
+                    <Link to={`/products/1`}>
+                      {" "}
+                      <img src="landing.svg" alt="landing image1" />
+                    </Link>
+                    <p className="landing_img_title">Alexander The Great</p>
+                  </div> */}
               </Row>
+
+
+
               <Row className="mobile_sidebar" align="middle">
                 <Col span={2}>
                   <FiVolume2 className="volume_icon mx-auto" onClick={start} />
@@ -74,6 +93,8 @@ export default function Landingpage() {
           </Row>
         </div>
       </Row>
+      {/* )} */}
+
     </>
   );
 }

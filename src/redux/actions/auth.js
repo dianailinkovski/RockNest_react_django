@@ -7,26 +7,31 @@ import {
   GET_ERRORS,
   CLEAR_MESSAGE,
 } from "./types";
+import axios from "axios";
+
 import axiosInstance from "../../utils/axios";
+const baseURL = "http://127.0.0.1:8000";
 
 export const register =
   ({ username, email, password, confirmPassword }) =>
   (dispatch) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json',
+    //     'X-CSRFToken': "wrActQjzTCxLCJBeA7OBLDEAbEfJz0mBybxbiTGL6ZJEJy4KzPXtfeETLXXNNFCN"
+    //   }
+    // };
 
     if (password === confirmPassword) {
-      const body = JSON.stringify({
-        username,
-        email,
-        password,
+      const body = ({
+        username:username,
+        email:email,
+        password:password,
       });
-
-      axiosInstance
-        .post("/user/register/", body, config)
+      // console.log(body,"body123456789");
+       
+        axios.post(`${baseURL}/signup/`, body)
         .then((res) => {
           dispatch({
             type: REGISTER_SUCCESS,
@@ -58,18 +63,20 @@ export const register =
   };
 
 export const login =
-  ({ email, password }) =>
+  ({ username, password }) =>
   (dispatch) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
 
-    const body = JSON.stringify({ email, password });
-
-    axiosInstance
-      .post("/user/login/", body, config)
+    const body = ({
+      username:username,
+      password:password,
+    });
+    // console.log(body,"body123")
+      axios.post(`${baseURL}/login/`, body)
       .then((res) => {
         dispatch({
           type: LOGIN_SUCCESS,

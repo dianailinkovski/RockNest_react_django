@@ -253,7 +253,9 @@ export default function Cart() {
               </Row>
               <Row className="check_height">
                 <Col lg={12} md={12} sm={24} xs={24}>
-                  <button className="btn_check">Check Out</button>
+                  <Link to="/step">
+                    <button className="btn_check">Check Out</button>
+                  </Link>
                 </Col>
               </Row>
             </Col>

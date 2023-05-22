@@ -20,6 +20,8 @@ const initialState = {
   detailRecipe: null,
   likedRecipe: null,
   getproducts:[],
+  getproduct:"",
+  img_list:[],
 };
 
 export default function (state = initialState, action) {
@@ -40,6 +42,7 @@ export default function (state = initialState, action) {
           ...state,
           is_loading: false,
           getproduct: action.payload,
+          img_list:action.payload.images
         };
 
 
