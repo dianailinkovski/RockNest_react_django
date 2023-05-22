@@ -1,11 +1,20 @@
 import React from "react";
+import { Link,useNavigate } from "react-router-dom";
 import { MenuIcon } from "@heroicons/react/outline";
 import { Row, Col, Badge } from "antd";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 // import { Button } from "react-bootstrap";
 
-export default function header() {
+export default function Header() {
+  const navigate = useNavigate();
+  const { token } = useSelector((state) => state.auth);
+  console.log(token,"token");
+  const logout = () => {
+    localStorage.removeItem("rocket_user");
+    navigate('/');
+    alert("Successfully Logout");
+  }
   return (
     <>
       <Row
@@ -46,6 +55,10 @@ export default function header() {
         {/* </Col> */}
 
         <Col xxl={1} xl={2} lg={2} md={3} sm={3} style={{ textAlign: "end" }}>
+          {
+            token  && <button style={{ padding: "5px", border: "2px solid #CBCBCB" }} onClick={()=>logout()} >Logout</button>
+          }
+          
           <Link to="/cart">
             <Badge count={2}>
               <button style={{ padding: "5px", border: "2px solid #CBCBCB" }}>
