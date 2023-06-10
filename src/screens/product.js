@@ -125,7 +125,7 @@ export default function Product() {
                   <Row className="mt-5" justify="center">
                     <Col lg={20} md={20} sm={24}>
                       <img
-                        src={`http://localhost:8000/${detail_image}`}
+                        src={`http://localhost:8000${detail_image}`}
                         alt={`product detail${getproduct.id}`}
                         style={{ margin: "auto", height: "550px" }}
                       />

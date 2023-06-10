@@ -142,7 +142,7 @@ export default function Cart() {
                         <Row>
                           <div className="cart_img_position">
                             <img
-                              src={`http://localhost:8000/${item.product.main_image}`}
+                              src={`http://localhost:8000${item.product.main_image}`}
                               className="cart_img"
                               alt="cart_image"
                             />
