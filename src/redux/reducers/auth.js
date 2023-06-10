@@ -8,7 +8,7 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  token: JSON.parse(localStorage.getItem("rocket_user")),
+  token: JSON.parse(sessionStorage.getItem("rocket_user")),
   isAuthenticated: null,
   isLoading: false,
   user: null,
@@ -17,9 +17,16 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case LOGIN_SUCCESS:
-    case REGISTER_SUCCESS://console.log(action.payload.tokens.access,"auth123456")
-
-      localStorage.setItem("rocket_user", JSON.stringify(action.payload.tokens.access));
+    case REGISTER_SUCCESS:
+      // console.log(action.payload.user.username, "auth123456");
+      sessionStorage.setItem(
+        "rocket_user",
+        JSON.stringify(action.payload.tokens.refresh)
+      );
+      sessionStorage.setItem(
+        "username",
+        JSON.stringify(action.payload.user.username)
+      );
       return {
         ...state,
         ...action.payload,
@@ -31,7 +38,9 @@ export default function (state = initialState, action) {
     case LOGIN_FAIL:
     case LOGOUT_SUCCESS:
     case REGISTER_FAIL:
-      localStorage.removeItem("rocket_user");
+      sessionStorage.removeItem("rocket_user");
+      sessionStorage.removeItem("username");
+      sessionStorage.removeItem("cartlist_session");
       return {
         ...state,
         token: null,

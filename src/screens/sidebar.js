@@ -46,7 +46,7 @@ export default function Sidebar() {
           <Row>
             <Col span={24} className="instagram_position">
             
-              <InstagramOutlined className="instagram_icon" />
+             <a href="https://www.instagram.com/accounts/login/" target="_blank"> <InstagramOutlined className="instagram_icon" /></a>
             </Col>
           </Row>
         </Col>

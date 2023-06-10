@@ -1,12 +1,8 @@
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const GET_PRODUCT = "GET_PRODUCT";
-
-
-
-
-
-
-
+export const GET_Cartlist = "GET_Cartlist";
+export const GET_Useraddress = "GET_Useraddress";
+export const GET_PAYMENT = "GET_PAYMENT";
 
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";

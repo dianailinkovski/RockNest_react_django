@@ -3,7 +3,7 @@ import { Row, Col } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 
 import Sidebar from "./sidebar";
-import { getProducts } from "../redux/actions/recipes";
+import { getProducts, getclassic_product, getmodern_product } from "../redux/actions/recipes";
 import { Link, useNavigate  } from "react-router-dom";
 import { FiVolume2 } from "react-icons/fi";
 import { InstagramOutlined } from "@ant-design/icons";
@@ -22,9 +22,15 @@ export default function Landingpage() {
   // console.log(getproducts, "getproducts");
   // let products_data = getproducts ? getProducts : []
   const goto_detail = (id, image) => {
-    localStorage.setItem('image_url',image);
+    sessionStorage.setItem('image_url',image);
     navigate(`/products/${id}`);
     // console.log(id,"id");
+  }
+  const getclassic = () => {
+    dispatch(getclassic_product())
+  }
+  const getmodern = () => {
+    dispatch(getmodern_product())
   }
   return (
     <>
@@ -44,13 +50,13 @@ export default function Landingpage() {
                 justify="left"
               >
                 <Col>
-                  <button className="btn_black px-4 py-2 landing_btn_group1">
+                  <button className="btn_black px-4 py-2 landing_btn_group1" onClick={()=>getclassic()}>
                     {" "}
                     Classic Mmxxii
                   </button>
                 </Col>
                 <Col>
-                  <button className="btn_white px-4 py-2 landing_btn_group2">
+                  <button className="btn_white px-4 py-2 landing_btn_group2" onClick={()=>getmodern()}>
                     Modern mmxxiii{" "}
                   </button>
                 </Col>

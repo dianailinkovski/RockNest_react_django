@@ -424,17 +424,49 @@ p {
     margin : "auto";
     height: "550px";
 }
-
+.ant-progress-steps-item{
+    margin:3px;
+   }
+   .progress_customize1{
+    border:2px solid white;
+    padding:10px;
+   }
+   .progress_customize2, .progress_customize3, .progress_customize4 {
+    display: none;
+   }
+.ant-progress-steps-outer{
+    justify-content: center;
+}
 @media screen and (max-width : 1200px) {
     .landing_img_item {
         width: 300px !important;
         height: 380px !important;
     }
+    .ant-progress-steps-item{
+        margin:2px;
+       }
+    .progress_customize2{
+        display: block;
+        border:2px solid white;
+        padding:10px;
+        text-align: center;
+    }
+    .progress_customize1, .progress_customize3, .progress_customize4 {
+        display: none;
+       }
      
 }
 
 @media screen and (max-width:992px) {
     
+    .progress_customize1, .progress_customize2, .progress_customize4 {
+        display: none;
+       }
+      .progress_customize3{
+        display: block;
+        border:2px solid white;
+        padding:10px;
+      } 
     .mobile_sidebar {
         display: flex;
         justify-content: space-between;
@@ -496,6 +528,15 @@ p {
 }
 
 @media screen and (max-width:768px) {
+    .progress_customize1, .progress_customize2, .progress_customize3 {
+        display: none;
+       }
+      .progress_customize4{
+        display: block;
+        border:2px solid white;
+        padding:10px;
+        overflow: hidden;
+      } 
     .header_title {
         font-size: 20px;
     }
@@ -756,3 +797,7 @@ p {
     background-color: #1ca64a;
   }
   
+  & .ant-progress-text{
+    display:none !important;
+  }
+   

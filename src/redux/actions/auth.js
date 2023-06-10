@@ -8,7 +8,7 @@ import {
   CLEAR_MESSAGE,
 } from "./types";
 import axios from "axios";
-
+import { message } from "antd";
 import axiosInstance from "../../utils/axios";
 const baseURL = "http://127.0.0.1:8000";
 
@@ -24,14 +24,15 @@ export const register =
     // };
 
     if (password === confirmPassword) {
-      const body = ({
-        username:username,
-        email:email,
-        password:password,
-      });
+      const body = {
+        username: username,
+        email: email,
+        password: password,
+      };
       // console.log(body,"body123456789");
-       
-        axios.post(`${baseURL}/signup/`, body)
+
+      axios
+        .post(`${baseURL}/signup/`, body)
         .then((res) => {
           dispatch({
             type: REGISTER_SUCCESS,
@@ -41,6 +42,7 @@ export const register =
             type: CLEAR_MESSAGE,
             payload: res.data,
           });
+          message.success("Successfully sign up on website.")
         })
         .catch((err) => {
           dispatch({
@@ -52,6 +54,7 @@ export const register =
           });
         });
     } else {
+      message.error("Confirm password is not correct.")
       dispatch({
         type: GET_ERRORS,
         payload: {
@@ -71,12 +74,13 @@ export const login =
     //   },
     // };
 
-    const body = ({
-      username:username,
-      password:password,
-    });
+    const body = {
+      username: username,
+      password: password,
+    };
     // console.log(body,"body123")
-      axios.post(`${baseURL}/login/`, body)
+    axios
+      .post(`${baseURL}/login/`, body)
       .then((res) => {
         dispatch({
           type: LOGIN_SUCCESS,
@@ -86,8 +90,10 @@ export const login =
           type: CLEAR_MESSAGE,
           payload: res.data,
         });
+        message.success("Successfully login on website.");
       })
       .catch((err) => {
+        message.error("You can't access on website.");
         dispatch({
           type: GET_ERRORS,
           payload: err.response,
@@ -103,19 +109,19 @@ export const logout =
   (dispatch, getState) => {
     const body = JSON.stringify({ refresh });
 
-    axiosInstance
-      .post("/user/logout/", body, tokenConfig(getState))
-      .then((res) => {
-        dispatch({
-          type: LOGOUT_SUCCESS,
-        });
-      })
-      .catch((err) => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: err.response,
-        });
-      });
+    // axios.post(`${baseURL}/user/logout/`, body)
+    //   .then((res) => {
+    dispatch({
+      type: LOGOUT_SUCCESS,
+    });
+    message.success("Successfully logout on website.");
+    // })
+    // .catch((err) => {
+    //   dispatch({
+    //     type: GET_ERRORS,
+    //     payload: err.response,
+    //   });
+    // });
   };
 
 export const tokenConfig = (getState) => {

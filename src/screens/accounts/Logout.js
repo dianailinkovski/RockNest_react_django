@@ -20,7 +20,7 @@ export default function Logout({ modal, setModal }) {
   const handleLogoutClick = () => {
     dispatch(
       logout({
-        refresh: JSON.parse(localStorage.getItem("recipe")).refresh,
+        refresh: JSON.parse(sessionStorage.getItem("recipe")).refresh,
       })
     );
   };

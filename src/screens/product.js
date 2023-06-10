@@ -7,7 +7,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 // import "./custom";
 import $ from "jquery";
 import axios from "axios";
-import { getProduct } from "../redux/actions/recipes";
+import { getProduct,getCart_list } from "../redux/actions/recipes";
 
 // import { AiOutlineMinus } from "react-icons/ai";
 const { Title, Paragraph } = Typography;
@@ -24,7 +24,7 @@ export default function Product() {
   // console.log(getproduct, "getproduct");
   // console.log(img_list, "img_list");
   const [detail_image, setDetail_image] = useState(
-    localStorage.getItem("image_url")
+    sessionStorage.getItem("image_url")
   );
   useEffect(() => {
     dispatch(getProduct(id));
@@ -65,12 +65,17 @@ export default function Product() {
       const data = {
         id: Number(id),
         qty: qty_val,
+        username:JSON.parse(sessionStorage.getItem("username")) 
       };
       axios
         .post(`${baseURL}/add-to-cart/`, data)
         .then((res) => {
           console.log(res.data, "add_cart");
           message.success("Cart is added successfully!");
+          const data1 = {
+            username: JSON.parse(sessionStorage.getItem("username")),
+          };
+          dispatch(getCart_list(data1));
         })
         .catch((err) => {
           console.log(err);

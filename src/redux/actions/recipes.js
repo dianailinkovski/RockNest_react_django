@@ -9,7 +9,10 @@ import {
   DELETE_RECIPE,
   SAVE_RECIPE,
   GET_PRODUCTS,
-  GET_PRODUCT
+  GET_PRODUCT,
+  GET_Cartlist,
+  GET_Useraddress,
+  GET_PAYMENT,
 } from "./types";
 import axios from "axios";
 
@@ -18,35 +21,121 @@ import { tokenConfig } from "./auth";
 // const baseURL = "http://localhost:8000";
 const baseURL = "http://127.0.0.1:8000";
 
+export const payment_save = (data) => () => {
+  axios
+    .post(`${baseURL}/payment/`, data)
+    .then((res) => {
+      // console.log(res, "cart_list123456789");
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err, "error123456789");
+    });
+};
+export const create_address = (data) => (dispatch) => {
+  axios
+    .post(`${baseURL}/address/create_or_update_address/`, data)
+    .then((res) => {
+      // console.log(res, "cart_list123456789");
+      dispatch({
+        type: GET_Useraddress,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      console.log(err, "error123456789");
+    });
+};
+export const getCart_list = (data) => (dispatch) => {
+  
+  axios.post(`${baseURL}/cart_list/`, data)
+    .then((res) => {
+      // console.log(res, "cart_list123456789");
+      dispatch({
+        type: GET_Cartlist,
+        payload: res.data,
+      });
+      
+    })
+    .catch((err) => {
+      console.log(err, "error123456789");
+    });
+};
+export const getpayment = (data) => (dispatch) => {
+  axios
+    .post(`${baseURL}/payment/`, data)
+    .then((res) => {
+      // console.log(res, "cart_list123456789");
+      dispatch({
+        type: GET_PAYMENT,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      console.log(err, "error123456789");
+    });
+};
 export const getProducts = () => (dispatch) => {
   axios({
     method: "GET",
-    url:`${baseURL}/products/`,
-  }).then((res) => {
-    // console.log(res, "123456789");
-    dispatch({
-      type: GET_PRODUCTS,
-      payload: res.data,
-    });
+    url: `${baseURL}/products/`,
   })
-  .catch((err) => {
-    console.log(err, "error123456789");
-  });
-    
+    .then((res) => {
+      // console.log(res, "123456789");
+      dispatch({
+        type: GET_PRODUCTS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      console.log(err, "error123456789");
+    });
 };
-export const getProduct = ( id ) => (dispatch) => {
-  
-  axios.get(`${baseURL}/product/${id}/`).then((res) => {
-    // console.log(res, "123456789");
-    dispatch({
-      type: GET_PRODUCT,
-      payload: res.data,
-    });
+export const getclassic_product = () => (dispatch) => {
+  axios({
+    method: "GET",
+    url: `${baseURL}/products/classic`,
   })
-  .catch((err) => {
-    console.log(err, "error123456789");
-  });
-    
+    .then((res) => {
+      // console.log(res, "123456789");
+      dispatch({
+        type: GET_PRODUCTS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      console.log(err, "error123456789");
+    });
+};
+export const getmodern_product = () => (dispatch) => {
+  axios({
+    method: "GET",
+    url: `${baseURL}/products/modern`,
+  })
+    .then((res) => {
+      // console.log(res, "123456789");
+      dispatch({
+        type: GET_PRODUCTS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      console.log(err, "error123456789");
+    });
+};
+export const getProduct = (id) => (dispatch) => {
+  axios
+    .get(`${baseURL}/product/${id}/`)
+    .then((res) => {
+      // console.log(res, "123456789");
+      dispatch({
+        type: GET_PRODUCT,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      console.log(err, "error123456789");
+    });
 };
 
 export const getRecipes = () => (dispatch) => {

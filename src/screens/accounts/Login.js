@@ -17,7 +17,7 @@ export default function Login() {
     if (token) {
       navigate("/");
     }
-  }, [token,navigate]);
+  }, [token, navigate]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
