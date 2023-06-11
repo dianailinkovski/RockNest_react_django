@@ -111,7 +111,7 @@ function ProductStep( ) {
     console.log(data.username,"234567");
     const RC = await RevolutCheckout(
       getpayment_data.payment_response.public_id,
-      // "sandbox"
+      "sandbox"
     );
 
     RC.payWithPopup({

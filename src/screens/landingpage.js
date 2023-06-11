@@ -60,11 +60,11 @@ export default function Landingpage() {
                     Modern mmxxiii{" "}
                   </button>
                 </Col>
-                <Col>
+                {/* <Col>
                   <button className="btn_white px-4 py-2 landing_btn_group3">
                     Material mmxxiii{" "}
                   </button>
-                </Col>
+                </Col> */}
               </Row>
               <Row className="landing_image_mobile">
                 {getproducts.map((item) => (
