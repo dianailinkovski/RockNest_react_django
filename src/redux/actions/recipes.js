@@ -23,10 +23,10 @@ const baseURL = "http://127.0.0.1:8000/rocknest";
 
 export const payment_save = (data) => () => {
   axios
-    .post(`${baseURL}/payment/`, data)
+    .post(`${baseURL}/payment_checkout/`, data)
     .then((res) => {
       // console.log(res, "cart_list123456789");
-      console.log(res.data);
+      console.log(res.data,"payment_checkout");
     })
     .catch((err) => {
       console.log(err, "error123456789");

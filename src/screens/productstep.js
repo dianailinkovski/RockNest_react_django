@@ -117,7 +117,12 @@ function ProductStep( ) {
     RC.payWithPopup({
       name: data.username,
       onSuccess() {
-        alert("Thank you");
+        const data = {
+          username: JSON.parse(sessionStorage.getItem("username")),
+        };
+        dispatch(payment_save(data));
+        // alert("Thank you");
+
       },
       onError(message) {
         alert("Oh no : (" + message);
