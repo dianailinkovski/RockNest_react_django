@@ -343,11 +343,12 @@ p {
 
 .loading_page {
     /* width: 100%; */
-    height: calc(100vh - 60px);
+    /* height: calc(100vh - 60px); */
+    height: 100vh;
     background: #32383E;
     box-shadow: 0px 123px 123px rgba(0, 0, 0, 0.03);
-    margin-top: 30px;
-    margin-bottom: 30px;
+    /* margin-top: 30px; */
+    /* margin-bottom: 30px; */
 }
 
 .loading_volume {
@@ -545,11 +546,11 @@ p {
         text-align: center;
     }
 
-    .body_space {
+    /* .body_space {
         margin-left: 20px;
         margin-right: 20px;
-        /* display: flex; */
-    }
+        
+    } */
 
     .landing_btn_group {
         justify-content: center;
@@ -557,8 +558,12 @@ p {
     }
 
     .body_space {
-        margin-left: 50px;
-        margin-right: 50px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .body_space.mobile_body {
+        margin-left: 0px;
+        margin-right: 0px;
     }
 
     .landing_image_mobile {

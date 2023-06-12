@@ -35,7 +35,7 @@ export default function Loading() {
 
   return (
     <>
-      <Row className="body_space">
+      <Row className="body_space mobile_body">
         <Col span={24} className="loading_page">
           <Row className="mx-6 loading_header" justify="center">
             <Col span={20} className="mt-5">
