@@ -71,7 +71,7 @@ export default function Landingpage() {
                   <div className="landing_img_item">
                     {/* <Link to={`/products/${item.id}`}> */}
                       {" "}
-                      <img src={`http://localhost:8000/rocknest/products${item.main_image}`} alt="landing image1" onClick={()=>goto_detail(item.id,item.main_image)} />
+                      <img src={`http://localhost:8000${item.main_image}`} alt="landing image1" onClick={()=>goto_detail(item.id,item.main_image)} />
                     {/* </Link> */}
                     <p className="landing_img_title">{ item.name }</p>
                   </div>

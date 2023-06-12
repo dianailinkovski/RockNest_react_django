@@ -11,7 +11,7 @@ import { getProduct,getCart_list } from "../redux/actions/recipes";
 
 // import { AiOutlineMinus } from "react-icons/ai";
 const { Title, Paragraph } = Typography;
-const baseURL = "http://127.0.0.1:8000/rocknest/products";
+const baseURL = "http://127.0.0.1:8000/rocknest";
 
 export default function Product() {
   const dispatch = useDispatch();
@@ -125,7 +125,7 @@ export default function Product() {
                   <Row className="mt-5" justify="center">
                     <Col lg={20} md={20} sm={24}>
                       <img
-                        src={`http://localhost:8000/rocknest/products${detail_image}`}
+                        src={`http://localhost:8000${detail_image}`}
                         alt={`product detail${getproduct.id}`}
                         style={{ margin: "auto", height: "550px" }}
                       />
@@ -134,7 +134,7 @@ export default function Product() {
                   <Row className="mt-3" justify="center">
                     {img_list.map((item, i) => (
                       <img
-                        src={`http://localhost:8000/rocknest/products${item.image}`}
+                        src={`http://localhost:8000${item.image}`}
                         className={
                           i == 1 ? "detail_image active" : "detail_image"
                         }
