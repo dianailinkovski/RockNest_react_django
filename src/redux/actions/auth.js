@@ -10,8 +10,7 @@ import {
 import axios from "axios";
 import { message } from "antd";
 import axiosInstance from "../../utils/axios";
-const baseURL = "http://127.0.0.1:8000";
-
+const baseURL = "http://127.0.0.1:8000/rocknest/products";
 export const register =
   ({ username, email, password, confirmPassword }) =>
   (dispatch) => {

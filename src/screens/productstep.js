@@ -702,7 +702,7 @@ function ProductStep( ) {
                     <Col xxl={6} xl={10} lg={12} md={6} sm={8} xs={10}>
                       <img
                         alt="right_img"
-                        src={`http://localhost:8000${item.product.main_image}`}
+                        src={`http://localhost:8000/rocknest/products${item.product.main_image}`}
                         className="img-responsive"
                       />
                     </Col>
