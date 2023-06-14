@@ -10,7 +10,7 @@ import {
 import axios from "axios";
 import { message } from "antd";
 import axiosInstance from "../../utils/axios";
-const baseURL = "http://127.0.0.1:8000/rocknest";
+const baseURL = "https://rocknest-backend.vercel.app/rocknest";
 export const register =
   ({ username, email, password, confirmPassword }) =>
   (dispatch) => {

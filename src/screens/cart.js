@@ -12,7 +12,7 @@ import { Card } from "react-bootstrap";
 // import { AiOutlineMinus } from "react-icons/ai";
 import { getCart_list } from "../redux/actions/recipes";
 const { Title, Paragraph } = Typography;
-const baseURL = "http://127.0.0.1:8000/rocknest";
+const baseURL = "https://rocknest-backend.vercel.app/rocknest";
 
 export default function Cart() {
   const dispatch = useDispatch();
@@ -142,7 +142,7 @@ export default function Cart() {
                         <Row>
                           <div className="cart_img_position">
                             <img
-                              src={`http://localhost:8000${item.product.main_image}`}
+                              src={`https://rocknest-backend.vercel.app${item.product.main_image}`}
                               className="cart_img"
                               alt="cart_image"
                             />
