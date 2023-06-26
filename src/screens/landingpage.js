@@ -3,7 +3,7 @@ import { Row, Col } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 
 import Sidebar from "./sidebar";
-import { getProducts, getclassic_product, getmodern_product } from "../redux/actions/recipes";
+import { getProducts, getclassic_product, getmodern_product, getmaterial_product } from "../redux/actions/recipes";
 import { Link, useNavigate  } from "react-router-dom";
 import { FiVolume2 } from "react-icons/fi";
 import { InstagramOutlined } from "@ant-design/icons";
@@ -21,16 +21,25 @@ export default function Landingpage() {
   }, [dispatch]);
   // console.log(getproducts, "getproducts");
   // let products_data = getproducts ? getProducts : []
-  const goto_detail = (id, image) => {
+  const goto_detail = (id, image, category) => {
+    // alert(category);
     sessionStorage.setItem('image_url',image);
-    navigate(`/products/${id}`);
-    // console.log(id,"id");
+    if(category == "classic" || category =="modern"){
+      navigate(`/products/${id}`);
+    }
+    else{
+      navigate(`/material/${id}`);
+    }
+    // console.log(category,"category");
   }
   const getclassic = () => {
     dispatch(getclassic_product())
   }
   const getmodern = () => {
     dispatch(getmodern_product())
+  }
+  const getmaterial = () => {
+    dispatch(getmaterial_product())
   }
   return (
     <>
@@ -61,7 +70,7 @@ export default function Landingpage() {
                   </button>
                 </Col>
                 <Col>
-                  <button className="btn_white px-4 py-2 landing_btn_group3">
+                  <button className="btn_white px-4 py-2 landing_btn_group3" onClick={()=>getmaterial()}>
                     Material mmxxiii{" "}
                   </button>
                 </Col>
@@ -71,7 +80,7 @@ export default function Landingpage() {
                   <div className="landing_img_item">
                     {/* <Link to={`/products/${item.id}`}> */}
                       {" "}
-                      <img src={`https://rocknest-backend.vercel.app${item.main_image}`} alt="landing image1" onClick={()=>goto_detail(item.id,item.main_image)} />
+                      <img src={`https://rocknest-backend.vercel.app${item.main_image}`} alt="landing image1" onClick={()=>goto_detail(item.id,item.main_image,item.category)} />
                     {/* </Link> */}
                     <p className="landing_img_title">{ item.name }</p>
                   </div>

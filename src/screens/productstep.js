@@ -95,6 +95,7 @@ function ProductStep( ) {
     // if(current === 3){
       const data = {
         username: JSON.parse(sessionStorage.getItem("username")),
+        amount:0
       };
       dispatch(getpayment(data));
     // }
@@ -104,7 +105,11 @@ function ProductStep( ) {
 // console.log(getpayment_data.payment_response.public_id,"public_id")
   async function handleFormSubmit(event) {
     event.preventDefault();
-    
+    const data1 = {
+      username: JSON.parse(sessionStorage.getItem("username")),
+      amount:sub_total + shipping_price
+    };
+    dispatch(getpayment(data1));
     const data = {
       username: JSON.parse(sessionStorage.getItem("username")),
     };

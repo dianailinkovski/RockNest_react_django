@@ -24,6 +24,7 @@ export default function Cart() {
     if (token && getCart_list.length === 0) {
       const data = {
         username: JSON.parse(sessionStorage.getItem("username")),
+        
       };
       dispatch(getCart_list(data));
     }

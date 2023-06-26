@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./screens/header";
 import Landingpage from "./screens/landingpage";
 import Product from "./screens/product";
+import Material from "./screens/material";
 import Cart from "./screens/cart";
 import Loading from "./screens/loading";
 import ProductStep from "./screens/productstep";
@@ -26,6 +27,7 @@ export default function App() {
           <Routes>
             <Route exact path="/" element={<Landingpage />} />
             <Route exact path="/products/:id" element={<Product />} />
+            <Route exact path="/material/:id" element={<Material />} />
             <Route exact path="/cart" element={<Cart />} />
             <Route exact path="/step" element={<ProductStep />}></Route>
             <Route exact path="/login" element={<Login />}></Route>

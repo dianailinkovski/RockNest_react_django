@@ -123,6 +123,35 @@ export const getmodern_product = () => (dispatch) => {
       console.log(err, "error123456789");
     });
 };
+export const getmaterial_product = () => (dispatch) => {
+  axios({
+    method: "GET",
+    url: `${baseURL}/materials/`,
+  })
+    .then((res) => {
+      // console.log(res, "123456789");
+      dispatch({
+        type: GET_PRODUCTS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      console.log(err, "error123456789");
+    });
+};
+export const getMaterialProduct = (id) => (dispatch) => {
+  axios.get(`${baseURL}/material/${id}`)
+    .then((res) => {
+      console.log(res, "12345678900000000000000");
+      dispatch({
+        type: GET_PRODUCT,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      console.log(err, "error12345678900000000");
+    });
+};
 export const getProduct = (id) => (dispatch) => {
   axios
     .get(`${baseURL}/product/${id}/`)

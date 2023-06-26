@@ -7,7 +7,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 // import "./custom";
 import $ from "jquery";
 import axios from "axios";
-import { getProduct,getCart_list } from "../redux/actions/recipes";
+import { getMaterialProduct,getCart_list } from "../redux/actions/recipes";
 
 // import { AiOutlineMinus } from "react-icons/ai";
 const { Title, Paragraph } = Typography;
@@ -27,7 +27,7 @@ export default function Product() {
     sessionStorage.getItem("image_url")
   );
   useEffect(() => {
-    dispatch(getProduct(id));
+    dispatch(getMaterialProduct(id));
   }, [dispatch, id]);
 
   const [qty_val, setQty_val] = useState(1);
@@ -144,27 +144,7 @@ export default function Product() {
                       />
                     ))}
 
-                    {/* <img
-                      src={`http://localhost:8000/${detail_image}`}
-                      className="detail_image "
-                      alt="detail1"
-                      id="image1"
-                      onClick={() => select_image(1)}
-                    />
-                    <img
-                      src="../../landing.svg"
-                      className="detail_image active"
-                      alt="detail2"
-                      id="image2"
-                      onClick={() => select_image(2)}
-                    />
-                    <img
-                      src="../../landing.svg"
-                      className="detail_image"
-                      alt="detail3"
-                      id="image3"
-                      onClick={() => select_image(3)}
-                    /> */}
+                    
                   </Row>
                 </Col>
                 <Col
@@ -187,48 +167,30 @@ export default function Product() {
                       </Paragraph>
                     </Col>
                   </Row>
-                  <Row className="mt-4">
-                    <Col xl={12} lg={12} md={12} sm={14} xs={15}>
-                      <p className="product_size">Dimensions</p>
-                    </Col>
-                    <Col xl={10} lg={10} md={10} sm={10} xs={9}>
-                      <p className="product_size">Made In</p>
-                    </Col>
-                  </Row>
-                  <Row className=" border_bottom pb-3">
-                    <Col xl={12} lg={12} md={12} sm={14} xs={14}>
-                      <Paragraph className="product_size_value">
-                        {getproduct.dimension}
-                      </Paragraph>
-                    </Col>
-                    <Col xl={10} lg={10} md={10} sm={10} xs={10}>
-                      <Paragraph className="product_size_value">
-                        {getproduct.made_in}
-                      </Paragraph>
-                    </Col>
-                  </Row>
+                   
+                   
                   <Row className="mt-4">
                     <Col span={12}>
-                      <p className="product_size">Material</p>
+                      <p className="product_size">Available in</p>
                     </Col>
                   </Row>
                   <Row className=" border_bottom pb-3">
                     <Col span={24}>
                       <Paragraph className="product_size_value">
                         {" "}
-                        {getproduct.material}
+                        {getproduct.available_in}
                       </Paragraph>
                     </Col>
                   </Row>
                   <Row className="mt-4">
                     <Col span={20}>
-                      <p className="product_size">Estimated production time</p>
+                      <p className="product_size">Finish</p>
                     </Col>
                   </Row>
                   <Row className="mt-3 border_bottom pb-3">
                     <Col span={24}>
                       <Paragraph className="product_size_value">
-                        {getproduct.estimated_time}
+                        {getproduct.finish}
                       </Paragraph>
                     </Col>
                   </Row>
@@ -296,20 +258,9 @@ export default function Product() {
                       {/* </Link> */}
                     </Col>
                   </Row>
-                  <Row className="mt-3">
-                    <Col>
-                      <p className="product_size">Custom Size</p>
-                    </Col>
-                  </Row>
+                  
 
-                  <Row className="mt-2 mb-3">
-                    <Col span={24} className="product_custom_size">
-                      <p className="product_custom_val">
-                        {getproduct.custom_size}{" "}
-                      </p>
-                      <div className="product_custom_arrow">&gt;</div>
-                    </Col>
-                  </Row>
+                   
                 </Col>
               </Row>
             </Col>
