@@ -8,6 +8,7 @@ import { Link, useNavigate  } from "react-router-dom";
 import { FiVolume2 } from "react-icons/fi";
 import { InstagramOutlined } from "@ant-design/icons";
 import Loading from './loading';
+import $ from 'jquery';
 export default function Landingpage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,16 +34,34 @@ export default function Landingpage() {
     // console.log(category,"category");
   }
   const getclassic = () => {
+    $('.landing_btn_group button').map((index, element) => {
+      if(element.classList.contains('active')){
+        element.classList.remove('active');
+      }
+    });
+    $('.landing_btn_group1').addClass('active');
     dispatch(getclassic_product())
   }
   const getmodern = () => {
+    $('.landing_btn_group button').map((index, element) => {
+      if(element.classList.contains('active')){
+        element.classList.remove('active');
+      }
+    });
+    $('.landing_btn_group2').addClass('active');
     dispatch(getmodern_product())
   }
   const getmaterial = () => {
+    $('.landing_btn_group button').map((index, element) => {
+      if(element.classList.contains('active')){
+        element.classList.remove('active');
+      }
+    });
+    $('.landing_btn_group3').addClass('active');
     dispatch(getmaterial_product())
   }
   return (
-    <>
+    <>  
      {/* {isloading ? (
         <Loading />
       ) : ( */}
@@ -59,13 +78,13 @@ export default function Landingpage() {
                 justify="left"
               >
                 <Col>
-                  <button className="btn_black px-4 py-2 landing_btn_group1" onClick={()=>getclassic()}>
+                  <button className="btn_white  px-4 py-2 landing_btn_group1" onClick={()=>getclassic()}>
                     {" "}
                     Classic Mmxxii
                   </button>
                 </Col>
                 <Col>
-                  <button className="btn_white px-4 py-2 landing_btn_group2" onClick={()=>getmodern()}>
+                  <button className="btn_white  px-4 py-2 landing_btn_group2" onClick={()=>getmodern()}>
                     Modern mmxxiii{" "}
                   </button>
                 </Col>
@@ -92,6 +111,7 @@ export default function Landingpage() {
                     </Link>
                     <p className="landing_img_title">Alexander The Great</p>
                   </div> */}
+
               </Row>
 
 
@@ -101,7 +121,7 @@ export default function Landingpage() {
                   <FiVolume2 className="volume_icon mx-auto" onClick={start} />
                 </Col>
                 <Col span={2} style={{ textAlign: "end" }}>
-                  <InstagramOutlined className="instagram_icon" />
+                  <a href="https://www.instagram.com/rocknestlimited/" > <InstagramOutlined className="instagram_icon" /></a>
                 </Col>
               </Row>
             </Col>

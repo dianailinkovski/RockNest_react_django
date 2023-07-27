@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Divider, Typography, Progress } from "antd";
 import { FiVolume2 } from "react-icons/fi";
-import { green, red } from "@ant-design/colors";
+// import { green, red } from "@ant-design/colors";
 // import { ProgressBarComponent } from "@syncfusion/ej2-react-progressbar";
 // import { LinearProgressBar, CircularProgressBar  } from "react-percentage-bar";
 const { Paragraph } = Typography;
@@ -45,7 +45,7 @@ export default function Loading() {
                   textAlign: "center",
                 }}
               >
-                May 14, 2023{" "}
+                {/* May 14, 2023{" "} */}
               </p>
               <button className="loading_volume">
                 {" "}
