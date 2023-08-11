@@ -712,7 +712,7 @@ function ProductStep( ) {
                     <Col xxl={6} xl={10} lg={12} md={6} sm={8} xs={10}>
                       <img
                         alt="right_img"
-                        src={`https://rocknest-backend.vercel.app${item.product.main_image}`}
+                        src={`${item.product.main_image}`}
                         className="img-responsive"
                       />
                     </Col>

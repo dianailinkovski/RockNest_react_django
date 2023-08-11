@@ -20,7 +20,7 @@ export default function Landingpage() {
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
-  // console.log(getproducts, "getproducts");
+  console.log(getproducts, "getproducts");
   // let products_data = getproducts ? getProducts : []
   const goto_detail = (id, image, category) => {
     // alert(category);
@@ -99,13 +99,14 @@ export default function Landingpage() {
                   <div className="landing_img_item">
                     {/* <Link to={`/products/${item.id}`}> */}
                       {" "}
-                      <img src={`https://rocknest-backend.vercel.app${item.main_image}`} alt="landing image1" onClick={()=>goto_detail(item.id,item.main_image,item.category)} />
+                      <img src={`${item.main_image}`} alt="landing image1" onClick={()=>goto_detail(item.id,item.main_image,item.category)} />
                     {/* </Link> */}
                     <p className="landing_img_title">{ item.name }</p>
                   </div>
                 ))}
                 {/* <div className="landing_img_item">
-                    <Link to={`/products/1`}>
+// https://rocknest.s3.amazonaws.com/rocknest_images/a_a.jpeg
+                    <Link to={`/products/1`}> 
                       {" "}
                       <img src="landing.svg" alt="landing image1" />
                     </Link>

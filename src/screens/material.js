@@ -125,7 +125,7 @@ export default function Product() {
                   <Row className="mt-5" justify="center">
                     <Col lg={20} md={20} sm={24}>
                       <img
-                        src={`https://rocknest-backend.vercel.app${detail_image}`}
+                        src={`${detail_image}`}
                         alt={`product detail${getproduct.id}`}
                         style={{ margin: "auto", height: "550px" }}
                       />
@@ -134,7 +134,7 @@ export default function Product() {
                   <Row className="mt-3" justify="center">
                     {img_list.map((item, i) => (
                       <img
-                        src={`https://rocknest-backend.vercel.app${item.image}`}
+                        src={`${item.image}`}
                         className={
                           i == 1 ? "detail_image active" : "detail_image"
                         }
