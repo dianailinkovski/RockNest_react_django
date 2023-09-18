@@ -98,6 +98,8 @@ function ProductStep() {
   const [country, setcountry] = useState("");
 
   const [countryCode, setcountryCode] = useState('');
+  const [continent, setContinent] = useState('');
+  const [continentTax, setContinentTax] = useState(0);
 
   const [city, setcity] = useState("");
   const [phone_number, setphone_number] = useState("");
@@ -108,9 +110,20 @@ function ProductStep() {
   const [method, setMethod] = useState(1);
   const [enable, setEnable] = useState(false);
 
-console.log(phone_number,' phone number')
+  //card page variable
+  const [visaName, setVisaName] = useState("");
+  const [paypalName, setPaypalName] = useState("");
+  const [cardEmail, setCardEmail] = useState("");
+  const [cardNumber, setCardNumber] = useState('');
+  const [cardHolderName, setCardHolderName] = useState('');
+  const [cardCvv, setCardCvv] = useState('')
+  const [cardExpDate, setExpDate] = useState('');
+  const [cardType, setCardType] = useState('visa');
+
+ 
   const shipping_address = JSON.parse(sessionStorage.getItem('shipping_address'))
   useEffect(() => {
+
     if (shipping_address) {
       if(shipping_address.username == JSON.parse(sessionStorage.getItem("username"))){
         setFirst_name(shipping_address.first_name);
@@ -127,52 +140,44 @@ console.log(phone_number,' phone number')
     }
   }, [])
 
+  useEffect(async ()=>{
+    console.log(country,'country134')
+    if(country != ""){
+      const response = await axios.get(`https://restcountries.com/v3/name/${country}`);
+      try {
+        
+        if (response.data.length > 0) {
+          // Assuming the API returns the continent information
+          const selectedContinent = response.data[0].region || 'Unknown';
+          setContinent(selectedContinent);
+          if(selectedContinent == "Asia"){ setContinentTax(30) }
+          else if (selectedContinent == "Africa") { setContinentTax(12) }
+          else if (selectedContinent == "Oceania") { setContinentTax(12)}
+          else if (selectedContinent == "Americas") { setContinentTax(100)}
+          else if (selectedContinent == "Europe") {setContinentTax(50)}
+          else if (selectedContinent == "Antarctic") {setContinentTax(30)}
+         
+        } else {
+          setContinent('Unknown');
+        }
+      } catch (error) {
+        console.error(error);
+        setContinent('Unknown');
+      }
+    }
+    
+  },[country])
   
   const changecountry =async (val) => {
     setcountry(val);
     console.log(val,'set country125');
-  //  const code = fetchCountryCode(val);
-    // console.log(code,'countryCode')
     const response = await axios.get(`https://restcountries.com/v3/name/${val}`);
     const data = response.data[0];
     const code = data.cca2
     console.log(code,' code')
-    setcountryCode(code);
-    const phoneNumberObj = PhoneNumber.getExampleNumberForType(code, 'MOBILE');
-    if (phoneNumberObj) {
-      const phonePrefix = PhoneNumber.format(phoneNumberObj, PhoneNumber.NATIONAL);
-      setphone_number(phonePrefix);
-      console.log(phonePrefix,'phonePrefix')
-    } else {
-      setphone_number('N/A'); // Handle countries without mobile number examples
-    }
+    setcountryCode(code.toLowerCase());
+
   }
-  
-  //get continent
-  // function getContinentByCountry(countryIdentifier) {
-  //   let country;
-  
-  //   // Check if the input is a country code
-  //   if (countryIdentifier.length === 2) {
-  //     country = countries[countryIdentifier.toUpperCase()];
-  //   } else {
-  //     // Find the country by name (case-insensitive)
-  //     const countryName = countryIdentifier.toLowerCase();
-  //     country = Object.values(countries).find((c) => c.name.toLowerCase() === countryName);
-  //   }
-  
-  //   if (!country) {
-  //     return 'Unknown'; // Handle cases where the country is not found
-  //   }
-  
-  //   const continentName = continents[country.region].name;
-  //   return continentName;
-  // }
-  
-  // // Example usage:
-  // const countryCode123 = 'US'; // or 'United States'
-  // const continent = getContinentByCountry(countryCode123);
-  // console.log(`The continent for ${countryCode123} is ${continent}`);
 
   // console.log(getpayment_data.payment_response.public_id,"getpayment_data")
   useEffect(() => {
@@ -240,7 +245,7 @@ console.log(phone_number,' phone number')
   }, [dispatch, getcart_list]);
 
 
-  const shipping_price = method == 1 ? 12 : 0;
+  const shipping_price = method == 1 ? continentTax : 0;
   // const next = () => {
   //   setCurrent(current + 1);
   // };
@@ -249,6 +254,12 @@ console.log(phone_number,' phone number')
     setCurrent(current - 1);
   };
 
+  const gotoaddress = () =>{
+    setCurrent(0)
+  }
+  const gotopayment = () => {
+    setCurrent(2)
+  }
   const continue1 = () => {
     if (
       !first_name ||
@@ -284,9 +295,59 @@ console.log(phone_number,' phone number')
     setCurrent(current + 1);
   };
   const continue3 = () => {
-    // alert("continue3");
+    if(!enable){
+      const data = {
+        username: JSON.parse(sessionStorage.getItem("username")),
+        cardEmail: cardEmail,
+        cardHolderName: cardHolderName,
+        cardNumber: cardNumber,
+        cardExpDate: cardExpDate,
+        cardCvv:  cardCvv,
+        visaName : visaName,
+        cardType : "visa"
+      };
+      sessionStorage.setItem('visaInfo', JSON.stringify(data));
+      sessionStorage.removeItem('paypalInfo')
+    }
+    else{
+      const data = {
+        username: JSON.parse(sessionStorage.getItem("username")),
+        paypalName : paypalName,
+        cardType : "mastercard"
+      };
+      sessionStorage.setItem('paypalInfo', JSON.stringify(data));
+      sessionStorage.removeItem('visaInfo')
+    }
     setCurrent(current + 1);
   };
+
+  useEffect(() => {
+    const visaInfo = JSON.parse(sessionStorage.getItem('visaInfo'))
+    const paypalInfo = JSON.parse(sessionStorage.getItem('paypalInfo'))
+    if (visaInfo) {
+      if(visaInfo.username == JSON.parse(sessionStorage.getItem("username"))){
+          setCardEmail(visaInfo.cardEmail);
+          setCardHolderName(visaInfo.cardHolderName);
+          setCardNumber(visaInfo.cardNumber);
+          setExpDate(visaInfo.cardExpDate);
+          setCardCvv(visaInfo.cardCvv);
+          setVisaName(visaInfo.visaName);
+          setEnable(false);
+          setCardType(visaInfo.cardType)
+          
+
+      }
+    }
+    else if(paypalInfo){
+      if(paypalInfo.username == JSON.parse(sessionStorage.getItem("username"))){
+        if(paypalInfo.enable){
+          setPaypalName(paypalInfo.paypalName);
+          setEnable(true);
+          setCardType(visaInfo.cardType)
+        }
+      }
+    }
+  }, [])
 
   const changeRadioMethod = (e) => {
     setMethod(e.target.value);
@@ -294,7 +355,6 @@ console.log(phone_number,' phone number')
   };
 
   //set card number format
-    const [cardNumber, setCardNumber] = useState('');
 
     const handleInputChange = (e) => {
       const inputText = e.target.value;
@@ -320,7 +380,23 @@ console.log(phone_number,' phone number')
     // Can not select days before today and today
     return current && current < dayjs().endOf('day');
   };
+  const onExpChange = (date, dateString) => {
+    setExpDate(date);
+    console.log(date, dateString);
+    console.log("hello")
+  };
+  const handleCardTypeChange = (e) => {
 
+  
+    if(e.target.value == 'visa'){
+      setEnable(false)
+    }
+    else{
+      setEnable(true)
+    }
+    setCardType(e.target.value);
+  }
+  console.log(cardType,'cardType')
   return (
     <>
       <Row className="body_space">
@@ -417,46 +493,7 @@ console.log(phone_number,' phone number')
                           onChange={(val) => changecountry(val)}
                           style={selectStyle} />
 
-                        {/* <ReactFlagsSelect
-                            selected={country}
-                            onSelect={onSelect}
-                            searchable={searchable}
-                          /*showSelectedLabel={showSelectedLabel}
-                          selectedSize={selectedSize}
-                          showOptionLabel={showOptionLabel}
-                          optionsSize={optionsSize}
-                          placeholder={placeholder}
-                          searchable={searchable}
-                          searchPlaceholder={searchPlaceholder}
-                          alignOptionsToRight={alignOptionsToRight}
-                          fullWidth={fullWidth}
-                          disabled={disabled}  
-              />*/  }
-                        {/* <Input
-                            prefix={<img alt="country" src="country.svg" />}
-                            placeholder="Egypt"
-                            style={inputStyle}
-                            value={country}
-                            onChange={(e) => setcountry(e.target.value)}
-                          /> */}
-                        {/* <Select
-                          size="large"
-                          showSearch
-                          placeholder="Select a person"
-                          optionFilterProp="children"
-                          onChange={onCountryChange}
-                          onSearch={onCountrySearch}
-                          filterOption={(input, option) =>
-                            (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                          }
-                          style={{ width : '100%',}}
-                        >
-                          {countries.map((country) => (
-                            <Option value={country.code} key={country.name}>
-                              {country.name}
-                            </Option>
-                          ))}
-                        </Select> */}
+                        
 
                       </Row>
                     </Col>
@@ -473,31 +510,7 @@ console.log(phone_number,' phone number')
                         onChange={(val) => setstate_region(val)} 
                         style = { selectStyle }
                         />
-                      {/* <Input
-                          prefix={<MdLanguage style={{ scale: "1.7" }} />}
-                          placeholder="region oliuyr"
-                          style={inputStyle}
-                          value={state_region}
-                          onChange={(e) => setstate_region(e.target.value)}
-                        /> */}
-                      {/* <Select
-                          showSearch
-                          size="large"
-                          style={{ width: '100%' }}
-                          placeholder="Select a region"
-                          optionFilterProp="children"
-                          onChange={handleRegionChange}
-                          filterOption={(input, option) =>
-                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                          }
-                          disabled={!selectedCountry}
-                        >
-                          {regions.length && regions.map((region) => (
-                            <Option key={region} value={region}>
-                              {region}
-                            </Option>
-                          ))}
-                        </Select> */}
+                      
                   
                 </Col>
                   </Row>
@@ -539,19 +552,14 @@ console.log(phone_number,' phone number')
                 <Text className="font-label">Phone Number</Text>
               </Row>
               <Row className="mt-1">
-                {/* <Input
-                          prefix={<img alt="phone" src="phone.svg" />}
-                          placeholder="+964 6574 628913 "
-                          style={inputStyle}
-                          value={phone_number}
-                          onChange={(e) => setphone_number(e.target.value)}
-                        /> */}
+
                 <PhoneInput
-                  country={country}
+                  country={countryCode}
                   value= {phone_number}
                   onChange={phone => setphone_number(phone)}
                 />
               </Row>
+           
             </Col>
           </Row>
         </div>
@@ -570,7 +578,7 @@ console.log(phone_number,' phone number')
                 <Radio value={1}>
                   <Row align="middle">
                     {" "}
-                    <Text className="mr-3">$12 front door</Text>
+                    <Text className="mr-3">${continentTax} front door</Text>
                     <Tooltip
                       title="shipping method"
                       style={{ top: "0" }}
@@ -621,14 +629,17 @@ console.log(phone_number,' phone number')
                   suffix={
                     <Form1.Check
                       type="radio"
-                      defaultChecked
-                      onClick={() => setEnable(false)}
                       name="card"
                       style={{ scale: "1.7" }}
+                      checked={cardType === 'visa'} // Determine if this radio button is checked based on the selected card type
+                      onChange={handleCardTypeChange}
+                      value="visa"
                     />
                   }
                   placeholder="credit card"
                   style={inputStyle}
+                  value = { visaName }
+                  onChange = { (e) => setVisaName(e.target.value)}
                 />
               </Row>
             </Col>
@@ -640,11 +651,15 @@ console.log(phone_number,' phone number')
                     <Form1.Check
                       type="radio"
                       name="card"
-                      onClick={() => setEnable(true)}
                       style={{ scale: "1.7" }}
+                      checked={cardType === 'mastercard'} // Determine if this radio button is checked based on the selected card type
+                      onChange={handleCardTypeChange}
+                      value="mastercard"
                     />
                   }
                   style={inputStyle}
+                  value = { paypalName }
+                  onChange = { (e) => setPaypalName(e.target.value)}
                 />
               </Row>
             </Col>
@@ -663,9 +678,11 @@ console.log(phone_number,' phone number')
                 <Input
                   disabled={enable}
                   prefix={<MdEmail style={{ scale: "1.5" }} />}
-                  placeholder="mostafataghipour108@gmail.com"
+                  placeholder="mostafataghipour108"
                   style={inputStyle}
-                  
+                  suffix="@gmail.com"
+                  value={cardEmail}
+                  onChange={(e) => setCardEmail(e.target.value)}
                 />
               </Row>
             </Col>
@@ -706,6 +723,8 @@ console.log(phone_number,' phone number')
                   prefix={<UserOutlined style={{ scale: "1.5" }} />}
                   placeholder="Input the card holder name"
                   style={inputStyle}
+                  value = { cardHolderName}
+                  onChange = { (e) => setCardHolderName(e.target.value)}
                 />
               </Row>
             </Col>
@@ -722,6 +741,8 @@ console.log(phone_number,' phone number')
                   className="w-100"
                   style={inputStyle}
                   disabledDate={disabledDate}
+                  onChange={onExpChange}
+                  defaultValue={dayjs(cardExpDate)} 
                 />
               </Row>
             </Col>
@@ -736,6 +757,8 @@ console.log(phone_number,' phone number')
                   placeholder="5465"
                   style={inputStyle}
                   maxLength={4}
+                  value = { cardCvv }
+                  onChange = { (e) => setCardCvv(e.target.value)}
                 />
               </Row>
             </Col>
@@ -749,12 +772,11 @@ console.log(phone_number,' phone number')
           <Row align="middle">
             <Col span={22}>
               <Text>
-                2972 Westheimer Rd. Santa Ana, Illinois 854862972
-                Westheimer{" "}
+                {address} , &nbsp; { state_region } , &nbsp; { country }
               </Text>
             </Col>
             <Col span={2} style={{ textAlign: "end" }}>
-              <EditOutlined />
+              <EditOutlined onClick={()=>gotoaddress()} />
             </Col>
           </Row>
           <Divider />
@@ -763,7 +785,8 @@ console.log(phone_number,' phone number')
           </Row>
           <Row className="mt-3" align="middle">
             <Col xs={4} sm={3} lg={2} xl={1}>
-              {enable && <img alt="card" src="card.svg" />}
+              {enable && <img alt="card" src="paypal.svg" />}
+              {!enable && <img alt="card" src="visa.svg" />}
             </Col>
             <Col xs={18} sm={19} lg={20} xl={21}>
               {enable && <Text>paypal</Text>}
@@ -776,7 +799,7 @@ console.log(phone_number,' phone number')
               xl={2}
               style={{ textAlign: "end" }}
             >
-              <EditOutlined />
+              <EditOutlined onClick={() => gotopayment()} />
             </Col>
           </Row>
           <Divider />
