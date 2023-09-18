@@ -39,13 +39,12 @@ export default function Loading() {
         <Col span={24} className="loading_page">
           <Row className="mx-6 loading_header" justify="center">
             <Col span={20} className="mt-5">
-              <p
+              {/* <p
                 style={{
                   color: "rgba(255, 255, 255, 0.76)",
                   textAlign: "center",
                 }}
               >
-                {/* May 14, 2023{" "} */}
               </p>
               <button className="loading_volume">
                 {" "}
@@ -53,12 +52,12 @@ export default function Loading() {
                   className="volume_loading mx-auto"
                   onClick={start}
                 />{" "}
-              </button>
+              </button> */}
             </Col>
             <Col span={20} className="mt-2">
-              <Divider
+              {/* <Divider
                 style={{ border: "1px solid rgba(248, 248, 248, 0.16) " }}
-              />
+              /> */}
             </Col>
           </Row>
           <Row justify="center" style={{ marginTop: "230px" }}>

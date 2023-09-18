@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 import { MenuIcon } from "@heroicons/react/outline";
 import { Row, Col, Badge, Dropdown } from "antd";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +9,6 @@ import { logout } from "../redux/actions/auth";
 import { getCart_list } from "../redux/actions/recipes";
 
 export default function Header() {
-  // const navigate = useNavigate();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.auth);
@@ -46,12 +45,12 @@ export default function Header() {
      cart_length=JSON.parse(sessionStorage.getItem("cartlist_session")).length;
   }
   const handleLogoutClick = () => {
-    // navigate("/");
     dispatch(
       logout({
         refresh: JSON.parse(sessionStorage.getItem("rocket_user")),
       })
-    );
+      );
+    navigate("/");
     
 
   };

@@ -7,7 +7,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 // import "./custom";
 import $ from "jquery";
 import axios from "axios";
-import { getProduct,getCart_list } from "../redux/actions/recipes";
+import { getProduct, getCart_list } from "../redux/actions/recipes";
 
 // import { AiOutlineMinus } from "react-icons/ai";
 const { Title, Paragraph } = Typography;
@@ -22,14 +22,15 @@ export default function Product() {
   // console.log(token,"token123");
   // let img_list=getproduct.images?getproduct.images:[];
   // console.log(getproduct, "getproduct");
-  // console.log(img_list, "img_list");
+  console.log(img_list, "img_list");
   const [detail_image, setDetail_image] = useState(
     sessionStorage.getItem("image_url")
   );
+  
   useEffect(() => {
     dispatch(getProduct(id));
   }, [dispatch, id]);
-
+  
   const [qty_val, setQty_val] = useState(1);
   useEffect(() => {
     if (qty_val > 1) {
@@ -65,7 +66,7 @@ export default function Product() {
       const data = {
         id: Number(id),
         qty: qty_val,
-        username:JSON.parse(sessionStorage.getItem("username")) 
+        username: JSON.parse(sessionStorage.getItem("username"))
       };
       axios
         .post(`${baseURL}/add-to-cart/`, data)
@@ -81,7 +82,7 @@ export default function Product() {
           console.log(err);
         });
     }
-    else{
+    else {
       navigate("/login");
     }
   };
@@ -124,47 +125,33 @@ export default function Product() {
                   </Row>
                   <Row className="mt-5" justify="center">
                     <Col lg={20} md={20} sm={24}>
-                      <img
-                        src={`${detail_image}`}
-                        alt={`product detail${getproduct.id}`}
-                        style={{ margin: "auto", height: "550px" }}
-                      />
+                      {
+                        img_list.length && (
+                          <img
+                            src={`${detail_image}`}
+                            alt={`product detail${getproduct.id}`}
+                            style={{ margin: "auto", height: "550px" }}
+                          />
+                        )
+                      }
+
                     </Col>
                   </Row>
                   <Row className="mt-3" justify="center">
                     {img_list.map((item, i) => (
                       <img
                         src={`${item.image}`}
-                        className={
-                          i == 1 ? "detail_image active" : "detail_image"
-                        }
+                        // className={
+                        //   i == 0 ? "detail_image active" : "detail_image"
+                        // }
+                        className="detail_image"
                         alt={`detail${i}`}
                         id={`image${i}`}
                         onClick={() => select_image(i, item.image)}
                       />
                     ))}
 
-                    {/* <img
-                      src={`http://localhost:8000/${detail_image}`}
-                      className="detail_image "
-                      alt="detail1"
-                      id="image1"
-                      onClick={() => select_image(1)}
-                    />
-                    <img
-                      src="../../landing.svg"
-                      className="detail_image active"
-                      alt="detail2"
-                      id="image2"
-                      onClick={() => select_image(2)}
-                    />
-                    <img
-                      src="../../landing.svg"
-                      className="detail_image"
-                      alt="detail3"
-                      id="image3"
-                      onClick={() => select_image(3)}
-                    /> */}
+ 
                   </Row>
                 </Col>
                 <Col
@@ -238,7 +225,7 @@ export default function Product() {
                     justify="space-between"
                   >
                     <Col span={12}>
-                      <p className="product_size">Qty</p>
+                      <p className="product_size">HDM</p>
                     </Col>
                     <Col span={10} style={{ textAlign: "end" }}>
                       <Row justify="end" align="middle">

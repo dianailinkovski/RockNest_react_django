@@ -42,7 +42,7 @@ export default function (state = initialState, action) {
         is_loading: false,
         getproducts: action.payload,
       };
-    case GET_PRODUCT: //console.log(action.payload,"action_payload")
+    case GET_PRODUCT:  //console.log(action.payload,"action_payload")
       return {
         ...state,
         is_loading: false,

@@ -1,0 +1,14 @@
+.form-control {
+    background-color: rgb(253, 214, 214) !important;
+    color: rgb(104, 7, 60);
+    height: 55px !important;
+    width: 300px !important;
+  }
+  .react-tel-input {
+    margin-top: 10px !important;
+    margin-left: 10px !important;
+  }
+  
+  .flag-dropdown {
+    background-color: rgb(240, 205, 159) !important;
+  }

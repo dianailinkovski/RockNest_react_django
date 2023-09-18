@@ -135,9 +135,10 @@ export default function Product() {
                     {img_list.map((item, i) => (
                       <img
                         src={`${item.image}`}
-                        className={
-                          i == 1 ? "detail_image active" : "detail_image"
-                        }
+                        // className={
+                        //   i == 1 ? "detail_image active" : "detail_image"
+                        // }
+                        className="detail_image"
                         alt={`detail${i}`}
                         id={`image${i}`}
                         onClick={() => select_image(i, item.image)}
@@ -200,7 +201,7 @@ export default function Product() {
                     justify="space-between"
                   >
                     <Col span={12}>
-                      <p className="product_size">Qty</p>
+                      <p className="product_size">HDM</p>
                     </Col>
                     <Col span={10} style={{ textAlign: "end" }}>
                       <Row justify="end" align="middle">

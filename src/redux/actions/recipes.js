@@ -94,7 +94,7 @@ export const getProducts = () => (dispatch) => {
 export const getclassic_product = () => (dispatch) => {
   axios({
     method: "GET",
-    url: `${baseURL}/products/classic`,
+    url: `${baseURL}/products/classic/`,
   })
     .then((res) => {
       // console.log(res, "123456789");
@@ -110,7 +110,7 @@ export const getclassic_product = () => (dispatch) => {
 export const getmodern_product = () => (dispatch) => {
   axios({
     method: "GET",
-    url: `${baseURL}/products/modern`,
+    url: `${baseURL}/products/modern/`,
   })
     .then((res) => {
       // console.log(res, "123456789");
