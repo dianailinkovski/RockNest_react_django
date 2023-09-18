@@ -117,7 +117,7 @@ function ProductStep() {
   const [cardNumber, setCardNumber] = useState('');
   const [cardHolderName, setCardHolderName] = useState('');
   const [cardCvv, setCardCvv] = useState('')
-  const [cardExpDate, setExpDate] = useState('');
+  const [cardExpDate, setExpDate] = useState(dayjs());
   const [cardType, setCardType] = useState('visa');
 
  
@@ -325,26 +325,26 @@ function ProductStep() {
     const visaInfo = JSON.parse(sessionStorage.getItem('visaInfo'))
     const paypalInfo = JSON.parse(sessionStorage.getItem('paypalInfo'))
     if (visaInfo) {
+      console.log("visaInfo")
       if(visaInfo.username == JSON.parse(sessionStorage.getItem("username"))){
-          setCardEmail(visaInfo.cardEmail);
-          setCardHolderName(visaInfo.cardHolderName);
-          setCardNumber(visaInfo.cardNumber);
-          setExpDate(visaInfo.cardExpDate);
-          setCardCvv(visaInfo.cardCvv);
-          setVisaName(visaInfo.visaName);
-          setEnable(false);
-          setCardType(visaInfo.cardType)
-          
-
+        setCardEmail(visaInfo.cardEmail);
+        setCardHolderName(visaInfo.cardHolderName);
+        setCardNumber(visaInfo.cardNumber);
+        setExpDate(visaInfo.cardExpDate);
+        setCardCvv(visaInfo.cardCvv);
+        setVisaName(visaInfo.visaName);
+        setEnable(false);
+        setCardType(visaInfo.cardType)
+        
+        
       }
     }
     else if(paypalInfo){
       if(paypalInfo.username == JSON.parse(sessionStorage.getItem("username"))){
-        if(paypalInfo.enable){
           setPaypalName(paypalInfo.paypalName);
           setEnable(true);
-          setCardType(visaInfo.cardType)
-        }
+          setCardType(paypalInfo.cardType)
+          console.log("paypalInfo",paypalInfo.cardType)
       }
     }
   }, [])
