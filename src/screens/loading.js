@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Divider, Typography, Progress } from "antd";
-import { FiVolume2 } from "react-icons/fi";
-// import { green, red } from "@ant-design/colors";
-// import { ProgressBarComponent } from "@syncfusion/ej2-react-progressbar";
-// import { LinearProgressBar, CircularProgressBar  } from "react-percentage-bar";
+import   LandingImage  from '../assets/landing_image.png';
 const { Paragraph } = Typography;
 
 export default function Loading() {
@@ -36,43 +33,22 @@ export default function Loading() {
   return (
     <>
       <Row className="body_space mobile_body">
-        <Col span={24} className="loading_page">
+        <Col span={24} className="loading_page" >
           <Row className="mx-6 loading_header" justify="center">
             <Col span={20} className="mt-5">
-              {/* <p
-                style={{
-                  color: "rgba(255, 255, 255, 0.76)",
-                  textAlign: "center",
-                }}
-              >
-              </p>
-              <button className="loading_volume">
-                {" "}
-                <FiVolume2
-                  className="volume_loading mx-auto"
-                  onClick={start}
-                />{" "}
-              </button> */}
+              
             </Col>
             <Col span={20} className="mt-2">
-              {/* <Divider
-                style={{ border: "1px solid rgba(248, 248, 248, 0.16) " }}
-              /> */}
+
             </Col>
           </Row>
           <Row justify="center" style={{ marginTop: "230px" }}>
             <Col span={20} style={{ textAlign: "center" }}>
-              <p className="loading_title">Rocknest </p>
+              <img src = { LandingImage } style= {{ width : '100%' }} />
             </Col>
           </Row>
-          <Row justify="center" className="mt-2">
-            <Col span={20} style={{ textAlign: "center" }}>
-              <Paragraph className="loading_dec">
-                Italian Arabescato Marble Sculpture Handcrafted in EgyptItalian
-              </Paragraph>
-            </Col>
-          </Row>
-          <Row justify="center">
+          
+          <Row justify="center" align="middle" >
             <Col span={16} style={{ textAlign: "center" }}>
               <Progress
                 percent={percent}
@@ -108,28 +84,6 @@ export default function Loading() {
                 className="progress_customize4"
               />
             </Col>
-
-            {/* <button onClick={()=>changePercent()} >timezone</button> */}
-            {/* {
-                Progress()
-                  
-                
-              } */}
-
-            {/* <ProgressBarComponent
-                id="linear"
-                type="Linear"
-                trackThickness={24}
-                progressThickness={24}
-                value={100}
-                segmentCount={65}
-                animation={{
-                  enable: true,
-                  duration: 4000,
-                  delay: 0,
-                }}
-              ></ProgressBarComponent> */}
-            {/* </Col> */}
           </Row>
         </Col>
       </Row>

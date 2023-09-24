@@ -8,7 +8,7 @@ function CountryFlag({ countryCode }) {
         countryCode={countryCode}
         svg
         style={{
-          width: '20px', // Adjust the width and height as needed
+          width: '20px', //  Adjust the width and height as needed
           height: '17px',
         }}
       />

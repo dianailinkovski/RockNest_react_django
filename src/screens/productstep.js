@@ -10,9 +10,9 @@ import PhoneInput from 'react-phone-input-2'
 import "react-phone-input-2/lib/style.css";
 import "./flags.css";
 import { CountryDropdown, RegionDropdown  } from 'react-country-region-selector';
-import PhoneNumber from 'libphonenumber-js';
+
 import axios from 'axios'
-import { countries, continents } from 'country-data';
+
 import dayjs from 'dayjs';
 // import * as turf from '@turf/turf';
 // import CountryFlag from './countryFlag';
@@ -143,23 +143,28 @@ function ProductStep() {
   useEffect(async ()=>{
     console.log(country,'country134')
     if(country != ""){
-      const response = await axios.get(`https://restcountries.com/v3/name/${country}`);
+      // const response = await axios.get(`https://restcountries.com/v3/name/${country}`);
+      const response = await axios.get('https://restcountries.com/v3.1/all');
       try {
-        
-        if (response.data.length > 0) {
-          // Assuming the API returns the continent information
-          const selectedContinent = response.data[0].region || 'Unknown';
-          setContinent(selectedContinent);
-          if(selectedContinent == "Asia"){ setContinentTax(30) }
-          else if (selectedContinent == "Africa") { setContinentTax(12) }
-          else if (selectedContinent == "Oceania") { setContinentTax(12)}
-          else if (selectedContinent == "Americas") { setContinentTax(100)}
-          else if (selectedContinent == "Europe") {setContinentTax(50)}
-          else if (selectedContinent == "Antarctic") {setContinentTax(30)}
+        const uniqueContinents = [...new Set(response.data.map(country => country.region))];
+    
+        // Use the list of continents in your application
+        console.log(uniqueContinents,'continent list');
+
+        // if (response.data.length > 0) {
+        //   // Assuming the API returns the continent information
+        //   const selectedContinent = response.data[0].region || 'Unknown';
+        //   setContinent(selectedContinent);
+        //   if(selectedContinent == "Asia"){ setContinentTax(30) }
+        //   else if (selectedContinent == "Africa") { setContinentTax(12) }
+        //   else if (selectedContinent == "Oceania") { setContinentTax(12)}
+        //   else if (selectedContinent == "Americas") { setContinentTax(100)}
+        //   else if (selectedContinent == "Europe") {setContinentTax(50)}
+        //   else if (selectedContinent == "Antarctic") {setContinentTax(30)}
          
-        } else {
-          setContinent('Unknown');
-        }
+        // } else {
+        //   setContinent('Unknown');
+        // }
       } catch (error) {
         console.error(error);
         setContinent('Unknown');
@@ -427,7 +432,7 @@ function ProductStep() {
                       <Row className="mt-1">
                         <Input
                           prefix={<UserOutlined style={{ scale: "1.5" }} />}
-                          placeholder="mostafa"
+                          placeholder=""
                           style={inputStyle}
                           value={first_name}
                           onChange={(e) => setFirst_name(e.target.value)}
@@ -442,7 +447,7 @@ function ProductStep() {
                       <Row className="mt-1">
                         <Input
                           prefix={<UserOutlined style={{ scale: "1.5" }} />}
-                          placeholder="taghipour"
+                          placeholder=""
                           style={inputStyle}
                           value={last_name}
                           onChange={(e) => setlast_name(e.target.value)}
@@ -457,7 +462,7 @@ function ProductStep() {
                       </Row>
                       <Row className="mt-1">
                         <Input
-                          placeholder="Parker Rd. Allentown, New Mexico 31134"
+                          placeholder=""
                           prefix={<MdLocationOn style={{ scale: "1.7" }} />}
                           style={inputStyle}
                           value={address}
@@ -522,7 +527,7 @@ function ProductStep() {
               <Row className="mt-1">
                 <Input
                   prefix={<img alt="city" src="city.svg" />}
-                  placeholder="Cairo"
+                  placeholder=""
                   style={inputStyle}
                   value={city}
                   onChange={(e) => setcity(e.target.value)}
@@ -538,7 +543,7 @@ function ProductStep() {
                   prefix={
                     <MdOutlineAssignment style={{ scale: "1.5" }} />
                   }
-                  placeholder="996564736257"
+                  placeholder=""
                   style={inputStyle}
                   value={post_code}
                   onChange={(e) => setpost_code(e.target.value)}
@@ -601,12 +606,7 @@ function ProductStep() {
               <Paragraph
                 style={{ fontSize: "13px", marginLeft: "24px" }}
               >
-                Lorem ipsum was conceived as filler text, formatted in
-                a certain way to enable the presentation of graphic
-                elements in documents, without the need for formal
-                copy. Using Lorem Ipsum allows designers to put
-                together layouts and the form of the content before
-                the content has been
+                "Arrange shipping yourself" is a directive or instruction given in the context of logistics and transportation. It means that you are responsible for planning, coordinating, and managing the shipping process for a particular shipment or cargo. In other words, you will need to take care of all the tasks and decisions related to getting the goods or items from one location to another.
               </Paragraph>
             </Row>
           </Row>
@@ -678,7 +678,7 @@ function ProductStep() {
                 <Input
                   disabled={enable}
                   prefix={<MdEmail style={{ scale: "1.5" }} />}
-                  placeholder="mostafataghipour108"
+                  placeholder=""
                   style={inputStyle}
                   suffix="@gmail.com"
                   value={cardEmail}
@@ -754,11 +754,12 @@ function ProductStep() {
                 <Input
                   disabled={enable}
                   prefix={<img alt="cvv2" src="cvv2.svg" />}
-                  placeholder="5465"
+                  placeholder=""
                   style={inputStyle}
                   maxLength={4}
                   value = { cardCvv }
                   onChange = { (e) => setCardCvv(e.target.value)}
+                  type="password"
                 />
               </Row>
             </Col>
